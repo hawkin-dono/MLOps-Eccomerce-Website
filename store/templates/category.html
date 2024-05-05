@@ -4,16 +4,38 @@
 {% block content %}
 
         <!-- Header-->
-        <header class="bg-dark py-5">
+        <header class="bg-light py-4">
+            <div class="container px-4 px-lg-5 my-4">
+                <div class="card">
+                    <div class="card-body">
+                      <form method="POST" action="{% url 'search' %}">
+                          {% csrf_token %}
+                          <div class="mb-3">
+                    
+                            <input type="text" class="form-control" placeholder="Search For Products" name="searched">
+                          </div>
+                      <button style="background-color: #ffc107;" ""type="submit" class="btn btn-secondary">
+                          Search 
+                      </button>
+                      </form>
+                    </div>
+                  </div>
+                  
+            </div>
+        </header>
+        <header class="bg-warning py-5">
+            
             <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
+                <div style="color: #0d6efd;" class="text-center">
                     <h1 class="display-4 fw-bolder">
                     {{ category }}
                 </h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Category Page</p>
+                    <p class="lead fw-normat mb-0">Category Page</p>
                 </div>
             </div>
+            
         </header>
+        
         <!-- Section-->
         <section class="py-5">
 
@@ -30,7 +52,7 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
+                            <img class="card-img-top" src="{{ product.image }}" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -65,19 +87,28 @@
                 <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
+                            <img class="card-img-top" src="{{ product.image }}" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
+                                    <div class="product-name">{{ product.name }}</div>
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    {% comment %} {{ product.name }} {% endcomment %}
                                     <!-- Product price-->
-                                    ${{ product.price }}
+                                    
                                 </div>
                             </div>
+
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div style="color: #dc3545;" class="text-center">
+                                    <!-- Product price-->
+                                    ₫{{ product.price }}
+                                </div>
+                            </div>
+
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
+    <div class="text-center"><a style="background-color: #ffc107;" class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
                             </div>
                         </div>
                     </div>

@@ -101,9 +101,6 @@ def category_summary(request):
 	return render(request, 'category_summary.html', {"categories":categories})	
 
 def category(request, foo):
-	# Replace Hyphens with Spaces
-	foo = foo.replace('-', ' ')
-	# Grab the category from the url
 	try:
 		# Look Up The Category
 		category = Category.objects.get(name=foo)
