@@ -33,14 +33,13 @@
                 {% for product in products %}
                     
                 <div class="col mb-5">
-                        <div class="card h-100">
+                        <div class="card h-100 bg-light">
                             <!-- Product image-->
                             <img class="card-img-top" src="{{ product.image }}" alt="..." />
                             <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    {{ product.name }}
+                            <div class=" card-body p-4">
+                                <div class="wrapper bg-light">
+                                    <div class="demo-1 text-center">{{ product.name }}</div>
                                     
                                 </div>
                             </div>

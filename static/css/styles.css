@@ -10824,9 +10824,30 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.product-name {
+.productName {
+  white-space: nowrap;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wrapper {
+  padding: 20px;
+  background: #eaeaea;
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+.demo-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.demo-2 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 200px; /* Adjust this value according to your design */
+  max-width: 150px;
 }

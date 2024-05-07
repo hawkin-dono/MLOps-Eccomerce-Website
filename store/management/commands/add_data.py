@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 class Command(BaseCommand):
 
     def handle(self, *args: Any, **options: Any) -> str | None:
-        csv_file = 'data_products/crawled_data_the_thao_da_ngoai.csv'
+        csv_file = 'data_products/crawled_data_nha_cua_doi_song.csv'
         
         # lam_dep_suc_khoe 8
         # bach_hoa_online 9
@@ -37,7 +37,7 @@ class Command(BaseCommand):
         df = df.drop(columns=['product_name'])
         
 
-        df['category_id'] = 10
+        df['category_id'] = 4
 
         #Đổi tên 
         df.rename(columns={'id': 'tiki_product_id'}, inplace=True)
@@ -48,7 +48,8 @@ class Command(BaseCommand):
         df = df.drop_duplicates()
         df.reset_index(drop=True, inplace=True)
         print(df)
-
-        engine = create_engine('sqlite:///db.sqlite3')
-        df.to_sql(Product._meta.db_table, if_exists='append', con=engine, index=False)
+        result = df[df.duplicated()]
+        print(result)
+        # engine = create_engine('sqlite:///db.sqlite3')
+        # df.to_sql(Product._meta.db_table, if_exists='append', con=engine, index=False)
         
