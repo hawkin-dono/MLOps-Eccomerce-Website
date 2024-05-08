@@ -1,51 +1,145 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<header class="bg-light py-4">
+  <div class="container px-4 px-lg-5 my-4">
+      <div class="card">
+          <div class="card-body">
+            <form method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+          
+                  <input type="text" class="form-control" placeholder="Search For Products" name="searched">
+                </div>
+            <button style="background-color: #ffc107;" ""type="submit" class="btn btn-secondary">
+                Search 
+            </button>
+            </form>
+          </div>
+        </div>
+        
+  </div>
+</header>
+<br/><br/><br/>
 
 
-<div class="container">
+<div style="width: 1200px;" class="container ">
 <br/>
 
 
-<div class="card mb-3">
+<div class="card mb-3"> 
   <div class="row g-0">
+      {% comment %} style="width: 1200px;" {% endcomment %}
     <div class="col-md-4">
-      <img src="{{ product.image }}" class="img-fluid rounded-start" alt="...">
+      {% comment %} style="height: 400px; width: 400px;" {% endcomment %}
+      <img style="width: 350px;" src="{{ product.image }}" class="img-fluid rounded-start" alt="...">
+      {% comment %} style="height: 400px; width: 380px;"  {% endcomment %}
     </div>
     <div class="col-md-8">
-      <div class="card-body">
-        <center>
+      <div class="card-body ">
         <h5 class="card-title">{{ product.name }}</h5>
         <br/>
-        <p class="card-text justified">{{ product.description }}</p>
-        
+        <p class="card-text ">{{ product.description }}</p>
+        {% comment %} style="width: 700px;" {% endcomment %}
+        <br/>
+        <div style="color: #dc3545; height: 50px; width: 500px; font-size: 20px;" class="text-center bg-light">
+          <!-- Product price-->
           ₫{{ product.price }}
-            
+        </div>
+         
         
             <br/><br/>
-<div class="row justify-content-center">
-    <div class="col-md-2">Quantity:</div>
-                <div class="col-md-2">
-                <select class="form-select form-select-sm" id="qty-cart">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-                </div>
-            </div>
-            <br/><br/>
+        <div class="row justify-content">
+            <div class="col-md-2">Quantity:</div>
+            <div class="col-md-2">
+              <select class="form-select form-select-sm" id="qty-cart">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              </div>            
+        </div>
+        <br/><br/>
+        
         <a style="background-color: #ffc107;" href="{% url 'home'%}" class="btn btn-secondary">Home</a>
         <button style="background-color: #ffc107;" type="button" value="{{ product.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
-
-    </center>
       </div>
     </div>
   </div>
 </div>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<section class="py-5">
+
+  <div class="container px-4 px-lg-5 mt-5">
+  
+      <div class="row  gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+              
+      {% for product in products %}
+          
+      <div class="col mb-5">
+          <div class="card h-100 bg-light" >
+                  <!-- Product image-->
+                  <img class="card-img-top" src="{{ product.image }}" alt="..." />
+                  <!-- Product details-->
+                  <div style="height: 180px;" class=" card-body">
+                      <div class="wrapper bg-light">
+                          <div class="demo-1 text-center">{{ product.name }}</div>
+                          
+                      </div>
+                  </div>
+
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div style="color: #dc3545;" class="text-center">
+                          <!-- Product price-->
+                          ₫{{ product.price }}
+                      </div>
+                  </div>
+                  <!-- Product actions-->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div class="text-center"><a style="background-color: #ffc107;" class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
+                  </div>
+              </div>
+          </div>
+
+          {% endfor %}
+      </div>
+
+  </div>
+  <br/><br/>
+      <div class="pagination justify-content-center">
+          <span class="step-links">
+              {% if products.has_previous %}
+                  
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ products.previous_page_number }}">previous</a>
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ products.number }} of {{ products.paginator.num_pages }}.
+              </span>
+      
+              {% if products.has_next %}
+                  
+                  <a href="?page={{ products.next_page_number }}">next</a>
+                  <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+          </span>
+      </div>
+  
+</section>
 </div>
-        	
+       	
 
 <br/><br/><br/><br/><br/>
 

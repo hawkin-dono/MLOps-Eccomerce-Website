@@ -24,7 +24,7 @@ def process_order(request):
 		full_name = my_shipping['shipping_full_name']
 		email = my_shipping['shipping_email']
 		# Create Shipping Address from session info
-		shipping_address = f"{my_shipping['shipping_address1']}\n{my_shipping['shipping_address2']}\n{my_shipping['shipping_city']}\n{my_shipping['shipping_state']}\n{my_shipping['shipping_zipcode']}\n{my_shipping['shipping_country']}"
+		shipping_address = f"{my_shipping['shipping_address1']}\n{my_shipping['shipping_address2']}\n{my_shipping['shipping_city']}"
 		amount_paid = totals
 
 		# Create an Order
@@ -45,10 +45,7 @@ def process_order(request):
 				# Get product ID
 				product_id = product.id
 				# Get product price
-				if product.is_sale:
-					price = product.sale_price
-				else:
-					price = product.price
+				price = product.price
 
 				# Get quantity
 				for key,value in quantities().items():
@@ -82,10 +79,8 @@ def process_order(request):
 				# Get product ID
 				product_id = product.id
 				# Get product price
-				if product.is_sale:
-					price = product.sale_price
-				else:
-					price = product.price
+				
+				price = product.price
 
 				# Get quantity
 				for key,value in quantities().items():

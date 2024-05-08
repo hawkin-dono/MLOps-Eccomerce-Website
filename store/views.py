@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -20,7 +21,7 @@ def search(request):
 	if request.method == "POST":
 		searched = request.POST['searched']
 		# Query The Products DB Model
-		searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+		searched = Product.objects.filter(Q(name__icontains=searched))
 		# Test for null
 		if not searched:
 			messages.success(request, "That Product Does Not Exist...Please try Again.")
@@ -104,7 +105,19 @@ def category(request, foo):
 	try:
 		# Look Up The Category
 		category = Category.objects.get(name=foo)
-		products = Product.objects.filter(category=category)
+		product_list = Product.objects.filter(category=category)
+		# Pagination
+		paginator = Paginator(product_list, 52)  # Show 10 products per page
+		page = request.GET.get('page')
+		try:
+			products = paginator.page(page)
+		except PageNotAnInteger:
+			# If page is not an integer, deliver first page.
+			products = paginator.page(1)
+		except EmptyPage:
+			# If page is out of range (e.g. 9999), deliver last page of results.
+			products = paginator.page(paginator.num_pages)
+
 		return render(request, 'category.html', {'products':products, 'category':category})
 	except:
 		messages.success(request, ("That Category Doesn't Exist..."))
@@ -115,10 +128,12 @@ def product(request,pk):
 	product = Product.objects.get(id=pk)
 	return render(request, 'product.html', {'product':product})
 
+	
 
-def home(request):
-	products = Product.objects.all()
-	return render(request, 'home.html', {'products':products})
+
+# def home(request):
+# 	products = Product.objects.all()
+# 	return render(request, 'home.html', {'products':products})
 
 
 def about(request):
@@ -182,3 +197,21 @@ def register_user(request):
 			return redirect('register')
 	else:
 		return render(request, 'register.html', {'form':form})
+	
+
+def home(request):
+    product_list = Product.objects.all()
+
+    # Pagination
+    paginator = Paginator(product_list, 52)  # Show 10 products per page
+    page = request.GET.get('page')
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products = paginator.page(paginator.num_pages)
+
+    return render(request, 'home.html', {'products': products})
