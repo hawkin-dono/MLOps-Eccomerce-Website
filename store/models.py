@@ -97,3 +97,5 @@ class Rating(models.Model):
 
 	def __str__(self):
 		return str(self.rating)
+	
+#Thêm rating và nối lại cho id sản phẩm match với id sp trong rating
