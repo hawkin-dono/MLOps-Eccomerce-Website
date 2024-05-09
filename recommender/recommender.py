@@ -9,6 +9,7 @@ TODO:
 - To refactor
 - To optimize
 """
+import os 
 
 import pandas as pd
 import numpy as np
@@ -16,14 +17,14 @@ from tqdm import tqdm
 
 
 class RecommendationSystem(object):
-    def __init__(self, similarities_matrix_file=None):
+    def __init__(self, category=None):
         self.rating_data = None
         self.rating_matrix = None
-        self.similarities_matrix_file = similarities_matrix_file
         self.similarities_matrix = None
         self.min_rating_counts = 1
         self.senior_users = None
         self.item_lists = None
+        self.category = category
 
     def read_csv(self, file):
         """Read the rating data from csv
@@ -98,24 +99,32 @@ class RecommendationSystem(object):
         Returns:
             pd.DataFrame: The similarities matrix
         """
-        if self.similarities_matrix_file is not None:
-            matrix = pd.read_csv(self.similarities_matrix_file)
+        if self.similarities_matrix:
+            return self.similarities_matrix
+        
+        if os.path.exists(f'./similarities_matrices/{self.category}.csv'):
+            matrix = pd.read_csv(f'./similarities_matrices/{self.category}.csv')
             self.similarities_matrix = matrix
-            return matrix
-
+            return matrix 
+        
         n_items = len(self.rating_matrix.columns)
         matrix = np.zeros((n_items, n_items))
         for item_i in tqdm(range(n_items)):
             for item_j in range(n_items):
                 matrix[item_i, item_j] = self.adjusted_cosine(item_i, item_j)
-        pd.DataFrame(matrix).to_csv('similarities_matrix.csv', index=False)
+        pd.DataFrame(matrix).to_csv(f'./similarities_matrices/{self.category}.csv', index=False)
         self.similarities_matrix = pd.DataFrame(matrix)
         return matrix
+    
+    def initialize(self):
+        self.read_csv(f'processed_data/{self.category}.csv')
+        self.matrix_construction()
+        self.similarities()
 
     def most_similar(self, iid):
         item_i = self.item_lists.index(iid)
         most_similar = self.similarities_matrix.iloc[item_i].sort_values(ascending=False)
-        item_indexes =  most_similar.head(10).index.astype(int).to_list()
+        item_indexes =  most_similar.index.astype(int).to_list()[1:11]
         return [self.item_lists[index] for index in item_indexes]
 
     def predict(self, uid, item_i):
@@ -161,15 +170,12 @@ class RecommendationSystem(object):
             if self.rating_matrix.iloc[user_u, item_i] == 0:
                 recommend.append((self.predict(uid, item_i), item_i))
         recommend.sort(reverse=True)
-        recommend = recommend[:10]
+        recommend = recommend[1:11]
         return [self.item_lists[rcm[1]] for rcm in recommend]
 
 
 if __name__ == '__main__':
-    rcm = RecommendationSystem(similarities_matrix_file='similarities_matrix.csv')
-    rcm.read_csv('processed_data/comments_data_bach_hoa_online.csv')
-    rcm.matrix_construction()
-    rcm.similarities()
-    print(rcm.most_similar(15973974))
-    # print(rcm.similarities_matrix.iloc[1].value_counts())
+    category = 'bach_hoa_online.csv'
+    rcm = RecommendationSystem(category=category)
+    rcm.initialize()
 

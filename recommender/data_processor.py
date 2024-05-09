@@ -9,4 +9,4 @@ if __name__ == '__main__':
     for file in files:
         df = pd.read_csv(f'{ROOT}/{file}')
         df = df.drop(columns=['title', 'thank_count', 'created_at', 'customer_name', 'purchased_at', ])
-        df.to_csv(f'processed_data/{file}', index=False)
+        df.to_csv(f'processed_data/{file.replace('comments_data_','')}', index=False)
