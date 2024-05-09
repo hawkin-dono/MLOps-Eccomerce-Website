@@ -37,14 +37,14 @@
     </div>
     <div class="col-md-8">
       <div class="card-body ">
-        <h5 class="card-title">{{ product.name }}</h5>
+        <h5 style="font-size: 23px"class="card-title">{{ product.name }}</h5>
         <br/>
-        <p class="card-text ">{{ product.description }}</p>
+        <p style="font-size: 19px" class="card-text ">{{ product.description }}</p>
         {% comment %} style="width: 700px;" {% endcomment %}
         <br/>
-        <div style="color: #dc3545; height: 50px; width: 500px; font-size: 20px;" class="text-center bg-light">
+        <div style=" height: 50px; width: 500px; font-size: 20px;" class="text-left bg-light">
           <!-- Product price-->
-          ₫{{ product.price }}
+          Price:  <span style="color: #dc3545;"> ₫{{ product.price }}</span>
         </div>
          
         

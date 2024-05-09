@@ -60,7 +60,7 @@ class Customer(models.Model):
 
 # All of our Products
 class Product(models.Model):
-	tiki_product_id = models.IntegerField(default=0)
+	tiki_product_id = models.IntegerField(unique=True, default=0)
 	name = models.CharField(max_length=100)
 	price = models.DecimalField(default=0, decimal_places=2, max_digits=10)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
@@ -87,3 +87,13 @@ class Order(models.Model):
 
 	def __str__(self):
 		return self.product
+	
+class Rating(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, to_field='tiki_product_id', related_name='ratings')
+	title = models.CharField(max_length=100, default='')
+	customer_id = models.IntegerField(default=0)
+	rating = models.IntegerField(default=0)
+	customer_name = models.CharField(max_length=100, default='')
+
+	def __str__(self):
+		return str(self.rating)
