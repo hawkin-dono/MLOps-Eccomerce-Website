@@ -16,6 +16,8 @@ import numpy as np
 from tqdm import tqdm
 
 
+ROOT = 'Ecommerce-website/recommender'
+
 class RecommendationSystem(object):
     def __init__(self, category=None):
         self.rating_data = None
@@ -102,8 +104,9 @@ class RecommendationSystem(object):
         if self.similarities_matrix:
             return self.similarities_matrix
         
-        if os.path.exists(f'./similarities_matrices/{self.category}.csv'):
-            matrix = pd.read_csv(f'./similarities_matrices/{self.category}.csv')
+        target = f'recommender/similarities_matrices/{self.category}.csv'
+        if os.path.exists(target):
+            matrix = pd.read_csv(target)
             self.similarities_matrix = matrix
             return matrix 
         
@@ -112,12 +115,13 @@ class RecommendationSystem(object):
         for item_i in tqdm(range(n_items)):
             for item_j in range(n_items):
                 matrix[item_i, item_j] = self.adjusted_cosine(item_i, item_j)
-        pd.DataFrame(matrix).to_csv(f'./similarities_matrices/{self.category}.csv', index=False)
+        pd.DataFrame(matrix).to_csv(target, index=False)
         self.similarities_matrix = pd.DataFrame(matrix)
         return matrix
     
     def initialize(self):
-        self.read_csv(f'processed_data/{self.category}.csv')
+        target = f'recommender/processed_data/{self.category}.csv'
+        self.read_csv(target)
         self.matrix_construction()
         self.similarities()
 
@@ -175,7 +179,8 @@ class RecommendationSystem(object):
 
 
 if __name__ == '__main__':
-    category = 'bach_hoa_online.csv'
+    category = 'bach_hoa_online'
     rcm = RecommendationSystem(category=category)
     rcm.initialize()
+    print(rcm.most_similar(15973974))
 

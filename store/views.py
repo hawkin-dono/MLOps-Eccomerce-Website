@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+import recommender.recommender
 from .models import Product, Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -15,6 +17,7 @@ from django.db.models import Q
 import json
 from cart.cart import Cart
 
+from recommender.recommender import RecommendationSystem
 
 def search(request):
 	# Determine if they filled out the form
@@ -80,6 +83,7 @@ def update_password(request):
 	else:
 		messages.success(request, "You Must Be Logged In To View That Page...")
 		return redirect('home')
+	
 def update_user(request):
 	if request.user.is_authenticated:
 		current_user = User.objects.get(id=request.user.id)
@@ -124,8 +128,30 @@ def category(request, foo):
 		return redirect('home')
 
 
+def category_map(natural_category):
+	cat_map = {
+		'Nhà Cửa - Đời Sống': 'nha_cua_doi_song',
+		'Thời Trang Nữ': 'thoi_trang_nu',
+		'Thiết Bị Kĩ Thuật Số - Phụ Kiện Số': 'thiet_bi_kts_phu_kien_so',
+		'Ô Tô - Xe Máy - Xe Đạp': 'o_to_xe_may_xe_dap',
+		'Làm Đẹp - Sức Khỏe': 'lam_dep_suc_khoe',
+		'Đồ Chơi - Mẹ & Bé': 'do_choi_me_be',
+		'Bách Hóa Online': 'bach_hoa_online',
+		'Điện Gia Dụng': 'dien_gia_dung',
+		'Điện Thoại - Máy Tính Bảng': 'dien_thoai_may_tinh_bang',
+		'Thể Thao - Dã Ngoại': 'the_thao_da_ngoai'
+	}
+	return cat_map[str(natural_category)]
+
 def product(request,pk):
 	product = Product.objects.get(id=pk)
+	iid = int(product.tiki_product_id)
+	category = category_map(product.category)
+	rcm = RecommendationSystem(category=category)
+	rcm.initialize()
+	most_similar = rcm.most_similar(iid)
+	print(most_similar)
+	# recommend_products = [Product.objects.get(id=sim_id) for sim_id in most_similar]
 	return render(request, 'product.html', {'product':product})
 
 	
