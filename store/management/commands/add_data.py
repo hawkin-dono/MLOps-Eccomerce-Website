@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> str | None:
         # csv_file = 'data_products/crawled_data_the_thao_da_ngoai.csv'
 
-        csv_file = 'data_comments/comments_data_the_thao_da_ngoai.csv'
+        csv_file = 'data_comments_all_fixed.csv'
 
         # dien_thoai_may_tinh_bang
         # do_choi_me_be
@@ -60,14 +60,17 @@ class Command(BaseCommand):
         
         # #Dành cho comment
 
-        df = df.drop(columns=['thank_count'])
-        df = df.drop(columns=['created_at'])
-        df = df.drop(columns=['purchased_at'])
+        # df = df.drop(columns=['thank_count'])
+        # df = df.drop(columns=['created_at'])
+        # df = df.drop(columns=['purchased_at'])
 
-        rows_with_null_customer_name = df[df['customer_name'].isnull()]
-        df = df.drop(rows_with_null_customer_name.index, axis=0)
+        # rows_with_null_customer_name = df[df['customer_name'].isnull()]
+        # df = df.drop(rows_with_null_customer_name.index, axis=0)
 
-        df.reset_index(drop=True, inplace=True)
+        # df.reset_index(drop=True, inplace=True)
+
+        
+
         print(df)
 
 

@@ -62,7 +62,7 @@ class Customer(models.Model):
 class Product(models.Model):
 	tiki_product_id = models.IntegerField(unique=True, default=0)
 	name = models.CharField(max_length=100)
-	price = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+	price = models.IntegerField(default=0)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
 	description = models.CharField(max_length=250, default='', blank=True, null=True)
 	image = models.CharField(max_length=100)
