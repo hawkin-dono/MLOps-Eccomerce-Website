@@ -126,7 +126,8 @@ def category(request, foo):
 
 def product(request,pk):
 	product = Product.objects.get(id=pk)
-	return render(request, 'product.html', {'product':product})
+	reccomend_products = Product.objects.filter(category=product.category)[:3]
+	return render(request, 'product.html', {'product':product, 'reccomend_products':reccomend_products})
 
 	
 
