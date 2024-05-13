@@ -150,12 +150,9 @@ def product(request,pk):
 	rcm = RecommendationSystem(category=category)
 	rcm.initialize()
 	most_similar = rcm.most_similar(iid)
-	print(most_similar)
-	# recommend_products = [Product.objects.get(id=sim_id) for sim_id in most_similar]
+	# Output: A list of Product objects
+	recommend_products = [Product.objects.filter(tiki_product_id=sim_id).first() for sim_id in most_similar]
 	return render(request, 'product.html', {'product':product})
-
-	
-
 
 # def home(request):
 # 	products = Product.objects.all()
