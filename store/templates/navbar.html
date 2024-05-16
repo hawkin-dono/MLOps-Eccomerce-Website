@@ -1,0 +1,72 @@
+<!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="https://salt.tikicdn.com/ts/upload/0e/07/78/ee828743c9afa9792cf20d75995e134e.png" alt="Shop in style">
+                    <p style="color: #0d6efd; "class="lead fw-normal mb-0">Tốt & Nhanh</p>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a></li>
+                        
+                        
+
+            {% if user.is_authenticated %}
+              
+   <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'update_user' %}">User Profile</a></li>
+                <li><hr class="dropdown-divider" /></li>
+<li><a class="dropdown-item" href="{% url 'update_info'  %}">User Info</a></li>
+                            </ul>
+                        </li>
+
+
+               <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+               <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+
+               <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+
+            {% endif %}
+
+                        
+
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'category_summary' %}">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+
+                                <li><a class="dropdown-item" href="{% url 'category' 'Nhà Cửa - Đời Sống' %}">Nhà Cửa - Đời Sống</a> </li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Thời Trang Nữ'%}">Thời Trang Nữ </a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Thiết Bị Kĩ Thuật Số - Phụ Kiện Số'%}">Thiết Bị Kĩ Thuật Số - Phụ Kiện Số</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Ô Tô - Xe Máy - Xe Đạp'%}">Ô Tô - Xe Máy - Xe Đạp</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Làm Đẹp - Sức Khỏe'%}">Làm Đẹp - Sức Khỏe</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Đồ Chơi - Mẹ & Bé'%}">Đồ Chơi - Mẹ & Bé</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Bách Hóa Online'%}">Bách Hóa Online</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Điện Gia Dụng'%}">Điện Gia Dụng</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Điện Thoại - Máy Tính Bảng'%}">Điện Thoại - Máy Tính Bảng</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Thể Thao - Dã Ngoại'%}">Thể Thao - Dã Ngoại</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+
+<a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i>
+                            Cart
+<span class="badge bg-warning ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}
+
+</span></a>
+
+
+                        
+                    </form>
+                </div>
+            </div>
+        </nav>
