@@ -85,29 +85,29 @@
   
       <div class="row  gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
               
-      {% for product in reccomend_products %}
+      {% for recommend_product in recommend_products %}
           
       <div class="col mb-5">
           <div class="card h-100 bg-light" >
                   <!-- Product image-->
-                  <img class="card-img-top" src="{{ product.image }}" alt="..." />
-                  <!-- Product details-->
+                  <img class="card-img-top" src="{{ recommend_product.image }}" alt="..." />
+                  <!-- recommend_Product details-->
                   <div style="height: 180px;" class=" card-body">
                       <div class="wrapper bg-light">
-                          <div class="demo-1 text-center">{{ product.name }}</div>
+                          <div class="demo-1 text-center">{{ recommend_product.name }}</div>
                           
                       </div>
                   </div>
 
                   <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                       <div style="color: #dc3545;" class="text-center">
-                          <!-- Product price-->
-                          ₫{{ product.price }}
+                          <!-- recommend_Product price-->
+                          ₫{{ recommend_product.price }}
                       </div>
                   </div>
-                  <!-- Product actions-->
+                  <!-- recommend_Product actions-->
                   <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                      <div class="text-center"><a style="background-color: #ffc107;" class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
+                      <div class="text-center"><a style="background-color: #ffc107;" class="btn btn-outline-dark mt-auto" href="{% url 'product' recommend_product.id %}">View Product</a></div>
                   </div>
               </div>
           </div>
