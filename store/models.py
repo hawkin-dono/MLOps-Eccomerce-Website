@@ -72,8 +72,8 @@ class Product(models.Model):
 	
 
 	def __str__(self):
+		# return self.name + ' - \n' + str(self.price) + ' - \n' + self.category.name+ ' - \n' + self.description + ' - \n' + self.image + ' - \n' + str(self.tiki_product_id)
 		return self.name
-
 
 # Customer Orders
 class Order(models.Model):
