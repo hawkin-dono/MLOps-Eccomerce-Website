@@ -2,9 +2,9 @@
 {% block content %}
 
 <!-- Header-->
-        <header class="bg-light py-4">
+        <header class="py-4">
             <div class="container px-4 px-lg-5 my-4">
-                <div class="card">
+                <div class="card bg-light ">
                     <div class="card-body">
                       <form method="POST" action="{% url 'search' %}">
                           {% csrf_token %}
