@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  app:
+    tty: true
+    build: .
+    volumes:
+      - .:/django
+    ports:
+      - 8000:8000
+    image: app:eccomerce-website
+    container_name: eccomerce-website-container
+    command: python manage.py runserver 8000
