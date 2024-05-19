@@ -21,7 +21,11 @@ https://drive.google.com/file/d/1_of20WwdVJvqqr1d9NlfORv2Gb8ukkc_/view?usp=shari
 ## To Install:
 ### Cài đặt Docker
 Sử dụng: https://www.docker.com/get-started/
-
+### Mở Docker Desktop trên thiết bị
+### Clone github repo
+```
+git clone https://github.com/hawkin-dono/Ecommerce-website.git
+```
 ### Run project
 ```
 docker compose up
