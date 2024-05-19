@@ -14,9 +14,9 @@ It is an E-commerce system built in Django. It contains all the essentials for a
 - Vũ Minh Khải
 
 ## Báo cáo:  
-https://drive.google.com/file/d/1_of20WwdVJvqqr1d9NlfORv2Gb8ukkc_/view?usp=sharing
+https://drive.google.com/file/d/102xCpeF56-P9Y8nkGAlGy2Bx_QunaPrz/view?usp=sharing
 ## Demo: 
-
+https://drive.google.com/file/d/1OMYnAlPQLnyxHvFvUu_2J-bgOEScoPWp/view?usp=sharing
 
 ## To Install:
 ### Cài đặt Docker
