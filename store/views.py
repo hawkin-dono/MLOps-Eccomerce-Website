@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
+import random
 
 from payment.forms import ShippingForm
 from payment.models import ShippingAddress
@@ -244,10 +245,11 @@ def register_user(request):
 	
 
 def home(request):
-    product_list = Product.objects.all()
-
+    product_list = list(Product.objects.all())
+    random.seed(27)
+    random.shuffle(product_list)
     # Pagination
-    paginator = Paginator(product_list, 52)  # Show 10 products per page
+    paginator = Paginator(product_list, 40)
     page = request.GET.get('page')
     try:
         products = paginator.page(page)
