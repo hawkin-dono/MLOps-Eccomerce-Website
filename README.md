@@ -1,7 +1,7 @@
 # Ecommerce-website
 
 
-It is an E-commerce system built in Django
+An E-commerce system built in Django
 
 ## About this Project:
 
@@ -13,67 +13,18 @@ It is an E-commerce system built in Django. It contains all the essentials for a
 - Bùi Thế Long
 - Vũ Minh Khải
 
+## Báo cáo:  
+https://drive.google.com/file/d/1_of20WwdVJvqqr1d9NlfORv2Gb8ukkc_/view?usp=sharing
+## Demo: 
+
 
 ## To Install:
+### Cài đặt Docker
+Sử dụng: https://www.docker.com/get-started/
 
-Cloning the Repository:
-
+### Run project
 ```
-$ git clone https://github.com/hawkin-dono/Ecommerce-website.git
-
-$ cd eccomerce-website
-
-```
-
-Installing the environment control:
-
-```
-$ pip install virtualenv
-
-$ virtualenv env
-
-```
-
-Activating the environment:
-
-on Windows:
-```
-env\Scripts\activate
-
-```
-on Mac OS / Linux:
-```
-$ source env/bin/activate
-
-```
-
-Installing dependencies:
-
-```
-$ pip install django
-
-```
-
-Last commands to start:
-
-```
-$ python manage.py makemigrations
-
-$ python manage.py migrate
-
-```
-Create a super user:
-
-```
-$ python manage.py createsuperuser admin-name
-
-```
-
-Finishing running server:
-
-```
-$ python manage.py runserver
-
+docker compose up
 ```
 
 ## Personas
