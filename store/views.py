@@ -152,9 +152,13 @@ def product(request,pk):
 	product = Product.objects.get(id=pk)
 	iid = int(product.tiki_product_id)
 	category = category_map(product.category)
-	rcm = RecommendationSystem(category=category)
-	rcm.initialize()
-	most_similar = rcm.most_similar(iid)
+	try:
+		rcm = RecommendationSystem(category=category)
+		rcm.initialize()
+		most_similar = rcm.most_similar(iid)
+	except:
+		recommend_products = Product.objects.filter(category=product.category)[:8]
+		return render(request, 'product.html', {'product':product, 'recommend_products':recommend_products})
 	# Output: A list of Product objects
 	recommend_products = []
 	for i in most_similar:
