@@ -9,5 +9,5 @@ services:
     ports:
       - 8000:8000
     image: app:eccomerce-website
-    container_name: eccomerce-website-container
-    command: python manage.py runserver 8000
+    container_name: mlops-eccomerce-website-container
+    command: python manage.py runserver 0.0.0.0:8000
